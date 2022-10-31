@@ -1,6 +1,15 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+//configurando bd
+builder.Services.AddDbContext<UserDbContext>(opt
+  => opt.UseMySql(builder.Configuration.GetConnectionString("UsuarioConnection"), new MySqlServerVersion(new Version(8, 0))));
+//configurando identity
+builder.Services.AddIdentity<IdentityUser<int>, IdentityRole<int>>()
+  .AddEntityFrameworkStores<UserDbContext>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

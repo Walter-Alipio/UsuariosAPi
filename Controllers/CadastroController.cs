@@ -1,13 +1,26 @@
+using FluentResults;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("[controller]")]
 public class CadastroController : ControllerBase
 {
+  private CadastroService _cadastroService;
+
+  public CadastroController(CadastroService cadastroService)
+  {
+    _cadastroService = cadastroService;
+  }
 
   [HttpPost]
-  public IActionResult CadastroUsuario(CreateUsuarioDTO usuarioDTO)
+  public IActionResult AddUsuario(CreateUsuarioDTO usuarioDTO)
   {
+    Result resultado = _cadastroService.AddUsuario(usuarioDTO);
+
+    if (resultado.IsFailed)
+    {
+      return StatusCode(500);
+    }
     return Ok();
   }
 }

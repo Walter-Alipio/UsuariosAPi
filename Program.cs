@@ -12,6 +12,8 @@ builder.Services.AddIdentity<IdentityUser<int>, IdentityRole<int>>()
   .AddEntityFrameworkStores<UserDbContext>();
 
 builder.Services.AddControllers();
+builder.Services.AddScoped<CadastroService, CadastroService>();//CadastroServide injeta a si mesmo no controlador.
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

@@ -11,6 +11,9 @@ builder.Services.AddDbContext<UserDbContext>(opt
 builder.Services.AddIdentity<IdentityUser<int>, IdentityRole<int>>()
   .AddEntityFrameworkStores<UserDbContext>();
 
+//Exemplo de configuração do password no Identity
+// builder.Services.Configure<IdentityOptions>(options => options.Password.RequiredLength = 8 );
+
 builder.Services.AddControllers();
 builder.Services.AddScoped<CadastroService, CadastroService>();//CadastroServide injeta a si mesmo no controlador.
 

@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using UsuariosAPI.Data;
+using UsuariosAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

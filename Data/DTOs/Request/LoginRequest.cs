@@ -1,10 +1,13 @@
 using System.ComponentModel.DataAnnotations;
 
-public class LoginRequest
+namespace UsuariosAPI.Data.Request
 {
-  [Required]
-  public string UserName { get; set; }
+  public class LoginRequest
+  {
+    [Required]
+    public string UserName { get; set; }
 
-  [Required]
-  public string Password { get; set; }
+    [Required]
+    public string Password { get; set; }
+  }
 }

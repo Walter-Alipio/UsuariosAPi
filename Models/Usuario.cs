@@ -1,6 +1,9 @@
-public class Usuario
+namespace UsuariosAPI.Models
 {
-  public int Id { get; set; }
-  public string Username { get; set; }
-  public string Email { get; set; }
+  public class Usuario
+  {
+    public int Id { get; set; }
+    public string Username { get; set; }
+    public string Email { get; set; }
+  }
 }

@@ -2,10 +2,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-public class UserDbContext : IdentityDbContext<IdentityUser<int>, IdentityRole<int>, int>
+namespace UsuariosAPI.Data
 {
-  public UserDbContext(DbContextOptions<UserDbContext> opt) : base(opt)
+  public class UserDbContext : IdentityDbContext<IdentityUser<int>, IdentityRole<int>, int>
   {
+    public UserDbContext(DbContextOptions<UserDbContext> opt) : base(opt)
+    {
 
+    }
   }
 }

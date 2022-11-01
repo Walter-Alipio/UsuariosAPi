@@ -1,27 +1,32 @@
 using AutoMapper;
 using FluentResults;
 using Microsoft.AspNetCore.Identity;
+using UsuariosAPI.Data.UsuarioDTO;
+using UsuariosAPI.Models;
 
-public class CadastroService
+namespace UsuariosAPI.Services
 {
-  private IMapper _mapper;
-  private UserManager<IdentityUser<int>> _userManager;
-
-  public CadastroService(IMapper mapper, UserManager<IdentityUser<int>> userManager)
+  public class CadastroService
   {
-    _mapper = mapper;
-    _userManager = userManager;
-  }
+    private IMapper _mapper;
+    private UserManager<IdentityUser<int>> _userManager;
 
-  public Result AddUsuario(CreateUsuarioDTO usuarioDTO)
-  {
-    Usuario usuario = _mapper.Map<Usuario>(usuarioDTO);
-    IdentityUser<int> usuarioIdentity = _mapper.Map<IdentityUser<int>>(usuario);
-    //cadastrando um usuario através do UserManager do Identity
-    Task<IdentityResult> resultadoIdentity = _userManager.CreateAsync(usuarioIdentity, usuarioDTO.Password);
+    public CadastroService(IMapper mapper, UserManager<IdentityUser<int>> userManager)
+    {
+      _mapper = mapper;
+      _userManager = userManager;
+    }
 
-    if (resultadoIdentity.Result.Succeeded) return Result.Ok();
+    public Result AddUsuario(CreateUsuarioDTO usuarioDTO)
+    {
+      Usuario usuario = _mapper.Map<Usuario>(usuarioDTO);
+      IdentityUser<int> usuarioIdentity = _mapper.Map<IdentityUser<int>>(usuario);
+      //cadastrando um usuario através do UserManager do Identity
+      Task<IdentityResult> resultadoIdentity = _userManager.CreateAsync(usuarioIdentity, usuarioDTO.Password);
 
-    return Result.Fail("Falha ao cadastrar");
+      if (resultadoIdentity.Result.Succeeded) return Result.Ok();
+
+      return Result.Fail("Falha ao cadastrar");
+    }
   }
 }

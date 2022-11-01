@@ -1,26 +1,32 @@
 using FluentResults;
 using Microsoft.AspNetCore.Mvc;
+using UsuariosAPI.Data.UsuarioDTO;
+using UsuariosAPI.Services;
 
-[ApiController]
-[Route("[controller]")]
-public class CadastroController : ControllerBase
+namespace UsuariosAPI.Controllers
 {
-  private CadastroService _cadastroService;
 
-  public CadastroController(CadastroService cadastroService)
+  [ApiController]
+  [Route("[controller]")]
+  public class CadastroController : ControllerBase
   {
-    _cadastroService = cadastroService;
-  }
+    private CadastroService _cadastroService;
 
-  [HttpPost]
-  public IActionResult AddUsuario(CreateUsuarioDTO usuarioDTO)
-  {
-    Result resultado = _cadastroService.AddUsuario(usuarioDTO);
-
-    if (resultado.IsFailed)
+    public CadastroController(CadastroService cadastroService)
     {
-      return StatusCode(500);
+      _cadastroService = cadastroService;
     }
-    return Ok();
+
+    [HttpPost]
+    public IActionResult AddUsuario(CreateUsuarioDTO usuarioDTO)
+    {
+      Result resultado = _cadastroService.AddUsuario(usuarioDTO);
+
+      if (resultado.IsFailed)
+      {
+        return StatusCode(500);
+      }
+      return Ok();
+    }
   }
 }

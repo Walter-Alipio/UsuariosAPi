@@ -1,24 +1,28 @@
 using FluentResults;
 using Microsoft.AspNetCore.Identity;
+using UsuariosAPI.Data.Request;
 
-public class LoginService
+namespace UsuariosAPI.Services
 {
-  private SignInManager<IdentityUser<int>> _signInManager;
-
-  public LoginService(SignInManager<IdentityUser<int>> signInManager)
+  public class LoginService
   {
-    _signInManager = signInManager;
-  }
+    private SignInManager<IdentityUser<int>> _signInManager;
 
-  public Result LogaUsuario(LoginRequest loginRequest)
-  {
-    //metodo do Identity para efetuar login
-    var resultadoIdentity = _signInManager.PasswordSignInAsync(
-      loginRequest.UserName, loginRequest.Password, false, false
-    );
+    public LoginService(SignInManager<IdentityUser<int>> signInManager)
+    {
+      _signInManager = signInManager;
+    }
 
-    if (resultadoIdentity.Result.Succeeded) return Result.Ok();
+    public Result LogaUsuario(LoginRequest loginRequest)
+    {
+      //metodo do Identity para efetuar login
+      var resultadoIdentity = _signInManager.PasswordSignInAsync(
+        loginRequest.UserName, loginRequest.Password, false, false
+      );
 
-    return Result.Fail("Login falhou!");
+      if (resultadoIdentity.Result.Succeeded) return Result.Ok();
+
+      return Result.Fail("Login falhou!");
+    }
   }
 }

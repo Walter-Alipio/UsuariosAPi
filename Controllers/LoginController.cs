@@ -1,3 +1,4 @@
+using System.Linq;
 using FluentResults;
 using Microsoft.AspNetCore.Mvc;
 using UsuariosAPI.Data.Request;
@@ -23,6 +24,15 @@ namespace UsuariosAPI.Controllers
       if (resultado.IsFailed) return Unauthorized(resultado.Errors.FirstOrDefault());
 
       return Ok(resultado.Successes.FirstOrDefault());//FirsOrDefault trás a menssagem de sucesso.
+    }
+
+    [HttpPost("/solicita-reset")]
+    public IActionResult SolicitaReseteSenhaUsuario(SolicitaReseteRequest request)
+    {
+      Result result = _loginService.SolicitaReseteSenhaUsuario(request);
+      if (result.IsFailed) return Unauthorized(result.Errors.ToList());
+
+      return Ok(result.Successes.FirstOrDefault());
     }
   }
 }

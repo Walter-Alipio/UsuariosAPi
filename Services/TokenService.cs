@@ -17,12 +17,13 @@ namespace UsuariosAPI.Services
         new Claim("id",usuario.Id.ToString())
       };
 
+      //cria uma chave a partir de um array de bytes
       var chave = new SymmetricSecurityKey(
-        Encoding.UTF8.GetBytes("")
+        Encoding.UTF8.GetBytes("0asdjas09djsa09djasdjsadajsd09asjd09sajcnzxn")
       );
-
+      //cria uma credencial encriptada a partir de uma chave
       var credentials = new SigningCredentials(chave, SecurityAlgorithms.HmacSha256);
-
+      //cria o toke com os direitos do usuario, credenciais e tempo de expiração da chave.
       var token = new JwtSecurityToken(
         claims: direitorUsuario,
         signingCredentials: credentials,

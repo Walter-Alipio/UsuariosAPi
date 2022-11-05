@@ -5,14 +5,21 @@ using UsuariosAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Configuration.AddUserSecrets<Program>();
+
 // Add services to the container.
 //configurando bd
-builder.Services.AddDbContext<UserDbContext>(opt
-  => opt.UseMySql(builder.Configuration.GetConnectionString("UsuarioConnection"), new MySqlServerVersion(new Version(8, 0))));
+builder.Services.AddDbContext<UserDbContext>(opt =>
+    opt.UseMySql(builder.Configuration.GetConnectionString("UsuarioConnection"),
+    new MySqlServerVersion(new Version(8, 0)))
+);
 
 //configurando identity
-builder.Services.AddIdentity<IdentityUser<int>, IdentityRole<int>>(
-    opt => opt.SignIn.RequireConfirmedEmail = true
+builder.Services.AddIdentity<IdentityUser<int>, IdentityRole<int>>(opt =>
+{
+  opt.SignIn.RequireConfirmedEmail = true;
+  opt.User.RequireUniqueEmail = true;
+}
   )
   .AddEntityFrameworkStores<UserDbContext>()
   .AddDefaultTokenProviders();

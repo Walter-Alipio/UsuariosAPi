@@ -5,6 +5,6 @@ namespace UsuariosAPI.Data.Request
   public class SolicitaReseteRequest
   {
     [Required]
-    public string Email { get; set; }
+    public string? Email { get; set; }
   }
 }

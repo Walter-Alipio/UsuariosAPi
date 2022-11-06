@@ -9,7 +9,7 @@ namespace UsuariosAPI.Services
   public class LoginService
   {
     private SignInManager<IdentityUser<int>> _signInManager;
-    private TokenService _tokeService;
+    private TokenService? _tokeService;
 
     public LoginService(TokenService tokeService, SignInManager<IdentityUser<int>> signInManager)
     {
@@ -43,11 +43,23 @@ namespace UsuariosAPI.Services
       return Result.Fail("Login falhou!");
     }
 
+    public Result ResetaSenhaUsuario(EfetuaResetRequest request)
+    {
+      IdentityUser<int>? identytiUser = RecuperaUsuarioPorEmail(request.Email);
+      IdentityResult resultadoIdentity = _signInManager.UserManager
+        .ResetPasswordAsync(identytiUser, request.Token, request.Password)
+        .Result;
+      if (resultadoIdentity.Succeeded)
+      {
+        return Result.Ok().WithSuccess("Senha redefinida com sucesso!");
+      }
+
+      return Result.Fail("Houve um erro na operação");
+    }
+
     public Result SolicitaReseteSenhaUsuario(SolicitaReseteRequest request)
     {
-      IdentityUser<int>? identytiUser = _signInManager.UserManager.Users.FirstOrDefault(
-         user => user.NormalizedEmail == request.Email.ToUpper()
-      );
+      IdentityUser<int>? identytiUser = RecuperaUsuarioPorEmail(request.Email);
       if (identytiUser != null)
       {
         string codigoRecuperacao = _signInManager.UserManager
@@ -56,6 +68,13 @@ namespace UsuariosAPI.Services
       }
 
       return Result.Fail("Falha ao solicitar redefinição");
+    }
+
+    private IdentityUser<int>? RecuperaUsuarioPorEmail(string email)
+    {
+      return _signInManager.UserManager.Users.FirstOrDefault(
+              user => user.NormalizedEmail == email.ToUpper()
+            );
     }
   }
 }

@@ -44,8 +44,9 @@ namespace UsuariosAPI.Services
 
     public Result AtivaContaUsuario(AtivaContaRequest request)
     {
+      //identifica o usuário pelo id
       var identityUser = _userManager.Users.FirstOrDefault(
-        u => u.Id == request.UsuarioId
+        user => user.Id == request.UsuarioId
       );
 
       var identityResult = _userManager.ConfirmEmailAsync(identityUser, request.CodigoAtivacao).Result;

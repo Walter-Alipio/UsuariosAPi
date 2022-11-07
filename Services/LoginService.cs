@@ -36,8 +36,12 @@ namespace UsuariosAPI.Services
           usuario =>
           usuario.NormalizedUserName == loginRequest.UserName.ToUpper()
         );
-        Token token = _tokeService.CreateToken(IdentityUser);
+
+        Token token = _tokeService
+          .CreateToken(IdentityUser, _signInManager
+            .UserManager.GetRolesAsync(IdentityUser).Result.FirstOrDefault());
         return Result.Ok().WithSuccess(token.Value);
+
       }
 
       return Result.Fail("Login falhou!");

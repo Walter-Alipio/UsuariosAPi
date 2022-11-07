@@ -9,12 +9,13 @@ namespace UsuariosAPI.Services
 {
   public class TokenService
   {
-    public Token CreateToken(IdentityUser<int> usuario)
+    public Token CreateToken(IdentityUser<int> usuario, string? role)
     {
       Claim[] direitorUsuario = new Claim[]
       {
         new Claim("username", usuario.UserName),
-        new Claim("id",usuario.Id.ToString())
+        new Claim("id",usuario.Id.ToString()),
+        new Claim(ClaimTypes.Role, role)
       };
 
       //cria uma chave a partir de um array de bytes

@@ -7,6 +7,6 @@ namespace UsuariosAPI.Data.Request
     [Required]
     public int UsuarioId { get; set; }
     [Required]
-    public string CodigoAtivacao { get; set; }
+    public string? CodigoAtivacao { get; set; }
   }
 }

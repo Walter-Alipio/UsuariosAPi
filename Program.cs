@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using UsuariosAPI.Data;
+using UsuariosAPI.Models;
 using UsuariosAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,7 +16,7 @@ builder.Services.AddDbContext<UserDbContext>(opt =>
 );
 
 //configurando identity
-builder.Services.AddIdentity<IdentityUser<int>, IdentityRole<int>>(opt =>
+builder.Services.AddIdentity<CustomIdentityUser, IdentityRole<int>>(opt =>
 {
   opt.SignIn.RequireConfirmedEmail = true;
   opt.User.RequireUniqueEmail = true;

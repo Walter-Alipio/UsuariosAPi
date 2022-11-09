@@ -10,7 +10,7 @@ builder.Configuration.AddUserSecrets<Program>();
 
 // Add services to the container.
 //configurando bd
-builder.Services.AddDbContext<UserDbContext>(opt =>
+builder.Services.AddDbContext<UsuariosAPI.Data.UserDbContext>(opt =>
     opt.UseMySql(builder.Configuration.GetConnectionString("UsuarioConnection"),
     new MySqlServerVersion(new Version(8, 0)))
 );

@@ -13,6 +13,7 @@ Adicionar user-secrets:
   "EmailSettings:Password": "",
   "EmailSettings:From": ""
 }
+
 ```
 
 Criar a base de dados:

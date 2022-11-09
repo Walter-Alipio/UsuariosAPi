@@ -5,7 +5,7 @@ using UsuariosAPI.Models;
 using UsuariosAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-
+//add user-secrets a classe Program
 builder.Configuration.AddUserSecrets<Program>();
 
 // Add services to the container.

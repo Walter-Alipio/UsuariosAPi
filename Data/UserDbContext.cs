@@ -34,7 +34,7 @@ namespace UsuariosAPI.Data
 
       admin.PasswordHash = hasher.HashPassword(admin,
         _configuration.GetValue<string>("admininfo:password"));
-      //"Admin123!"
+     
 
       builder.Entity<CustomIdentityUser>().HasData(admin);//salvando no bd
 
